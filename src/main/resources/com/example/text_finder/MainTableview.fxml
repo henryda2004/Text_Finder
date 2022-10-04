@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="559.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.text_finder.MainController">
+   <children>
+      <Button fx:id="btnfile" layoutX="34.0" layoutY="71.0" mnemonicParsing="false" onAction="#addFile" text="Add one file" />
+      <Button fx:id="btnfolder" layoutX="34.0" layoutY="115.0" mnemonicParsing="false" text="Add a folder" />
+      <Label layoutX="20.0" layoutY="14.0" prefHeight="39.0" prefWidth="243.0" text="TEXT FINDER">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <TableView fx:id="table" layoutX="295.0" layoutY="40.0" prefHeight="294.0" prefWidth="243.0">
+        <columns>
+          <TableColumn fx:id="colFile" prefWidth="181.0" text="File Name" />
+          <TableColumn fx:id="colType" prefWidth="61.0" text="Type" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
