@@ -5,10 +5,13 @@ import javafx.beans.property.SimpleStringProperty;
 public class Document {
     private SimpleStringProperty name;
     private SimpleStringProperty type;
+    private Document next;
+
 
     public Document(String name, String type) {
         this.name = new SimpleStringProperty(name);
         this.type = new SimpleStringProperty(type);
+        this.next = null;
     }
 
     public String getName() {
@@ -25,5 +28,13 @@ public class Document {
 
     public void setType(String type) {
         this.type = new SimpleStringProperty(type);
+    }
+
+    public Document getNext() {
+        return next;
+    }
+
+    public void setNext(Document next) {
+        this.next = next;
     }
 }

@@ -13,7 +13,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="559.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.text_finder.MainController">
    <children>
       <Button fx:id="btnfile" layoutX="34.0" layoutY="71.0" mnemonicParsing="false" onAction="#addFile" text="Add one file" />
-      <Button fx:id="btnfolder" layoutX="34.0" layoutY="115.0" mnemonicParsing="false" text="Add a folder" />
+      <Button fx:id="btnfolder" layoutX="34.0" layoutY="115.0" mnemonicParsing="false" onAction="#addFolder" text="Add a folder" />
       <Label layoutX="20.0" layoutY="14.0" prefHeight="39.0" prefWidth="243.0" text="TEXT FINDER">
          <font>
             <Font size="27.0" />

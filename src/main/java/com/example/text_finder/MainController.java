@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -28,7 +29,11 @@ public class MainController implements Initializable {
 
     final ObservableList<Document> observableListDocument = FXCollections.observableArrayList(
     );
+
+    static ListaDocuments ListDocuments = new ListaDocuments();
     public void addFile (ActionEvent event) {
+        DirectoryChooser dc = new DirectoryChooser();
+
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
@@ -37,19 +42,39 @@ public class MainController implements Initializable {
         );
         File selectedFile = fc.showOpenDialog(null);
         if(selectedFile != null) {
-            System.out.println(selectedFile.getName());
+            ListDocuments.insertFirst(selectedFile.getName(), selectedFile.getParent());
             observableListDocument.add(new Document(selectedFile.getName(), selectedFile.getParent()));
             table.setItems(observableListDocument);
         } else {
             System.out.println("file is not valid");
         }
-
-
     }
     public void addFolder (ActionEvent event) {
 
+        final DirectoryChooser dirchooser = new DirectoryChooser();
+
+        File file = dirchooser.showDialog(null);
+
+        if (file != null){
+            File parentDirectory = new File (file.getAbsolutePath());
+            listDir(parentDirectory);
+        } else {
+            System.out.println("file is not valid");
+        }
     }
 
+    public void listDir(File dir){
+        File elements[] = dir.listFiles();
+        for (File element: elements){
+            if(!element.getName().equals("*.doc")){
+                ListDocuments.insertFirst(element.getName(), element.getParent());
+                observableListDocument.add(new Document(element.getName(), element.getParent()));
+                table.setItems(observableListDocument);
+
+            }
+        }
+        ListDocuments.displayList();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
