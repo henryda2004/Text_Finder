@@ -13,7 +13,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="559.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.text_finder.MainController">
    <children>
       <Button fx:id="btnfile" layoutX="34.0" layoutY="71.0" mnemonicParsing="false" onAction="#addFile" text="Add one file" />
-      <Button fx:id="btnfolder" layoutX="34.0" layoutY="115.0" mnemonicParsing="false" onAction="#addFolder" text="Add a folder" />
+      <Button fx:id="btnfolder" layoutX="142.0" layoutY="71.0" mnemonicParsing="false" onAction="#addFolder" text="Add a folder" />
       <Label layoutX="20.0" layoutY="14.0" prefHeight="39.0" prefWidth="243.0" text="TEXT FINDER">
          <font>
             <Font size="27.0" />
@@ -25,5 +25,11 @@
           <TableColumn fx:id="colType" prefWidth="61.0" text="Type" />
         </columns>
       </TableView>
+      <Button fx:id="btnsearch" layoutX="49.0" layoutY="301.0" mnemonicParsing="false" onAction="#search" text="Search" />
+      <Label layoutX="34.0" layoutY="120.0" text="Enter content to search:" />
+      <TextField fx:id="textField" layoutX="34.0" layoutY="145.0" promptText="Word or phrase" />
+      <Label layoutX="36.0" layoutY="227.0" text="Sort results by:" />
+      <ChoiceBox fx:id="dropDownMenu" layoutX="122.0" layoutY="223.0" prefWidth="150.0" />
+      <Label fx:id="warningLabel" layoutX="108.0" layoutY="305.0" textFill="RED" />
    </children>
 </AnchorPane>

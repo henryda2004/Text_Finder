@@ -1,40 +1,38 @@
 package com.example.text_finder;
+import java.io.Serializable;
 
-import javafx.beans.property.SimpleStringProperty;
-
-public class Document {
-    private SimpleStringProperty name;
-    private SimpleStringProperty type;
-    private Document next;
-
+public class Document implements Serializable {
+    private String name;
+    private String type;
 
     public Document(String name, String type) {
-        this.name = new SimpleStringProperty(name);
-        this.type = new SimpleStringProperty(type);
-        this.next = null;
+        this.name = name;
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Document{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 
     public String getName() {
-        return name.get();
+        return name;
     }
 
     public void setName(String name) {
-        this.name = new SimpleStringProperty(name);
+        this.name = name;
     }
 
     public String getType() {
-        return type.get();
+        return type;
     }
 
     public void setType(String type) {
-        this.type = new SimpleStringProperty(type);
+        this.type = type;
     }
 
-    public Document getNext() {
-        return next;
-    }
-
-    public void setNext(Document next) {
-        this.next = next;
-    }
 }
+

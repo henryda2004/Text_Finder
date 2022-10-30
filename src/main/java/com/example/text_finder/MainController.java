@@ -5,18 +5,22 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
-import java.io.File;
+import java.io.*;
+import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    @FXML
+    public Label warningLabel;
+    @FXML
+    private ChoiceBox<String> dropDownMenu;
     @FXML
     private Button btnfile;
     @FXML
@@ -24,16 +28,29 @@ public class MainController implements Initializable {
     @FXML
     private TableView table;
 
-    public TableColumn <Document, String> colFile;
-    public TableColumn <Document, String>colType;
+    public TableColumn <DocumentForTable, String> colFile;
+    public TableColumn <DocumentForTable, String>colType;
 
-    final ObservableList<Document> observableListDocument = FXCollections.observableArrayList(
+    final ObservableList<DocumentForTable> observableListDocumentForTable = FXCollections.observableArrayList(
     );
+    final File[] filetoSend = new File[1];
+    static ArrayList<Document> ListDocuments = new ArrayList<>();
+    private ArrayList<DocumentForTable> list;
 
-    static ListaDocuments ListDocuments = new ListaDocuments();
+    static boolean ArraySocketsIniciado = false;
+
+    static boolean hayFiles = false;
+
+    private void InitList(){
+
+    }
+
+
+    //Conexion con server
+
     public void addFile (ActionEvent event) {
-        DirectoryChooser dc = new DirectoryChooser();
-
+        hayFiles = true;
+        this.list = new ArrayList<>();
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
@@ -42,15 +59,21 @@ public class MainController implements Initializable {
         );
         File selectedFile = fc.showOpenDialog(null);
         if(selectedFile != null) {
-            ListDocuments.insertFirst(selectedFile.getName(), selectedFile.getParent());
-            observableListDocument.add(new Document(selectedFile.getName(), selectedFile.getParent()));
-            table.setItems(observableListDocument);
+            ListDocuments.add(new Document(selectedFile.getName(), selectedFile.getParent()));
+            observableListDocumentForTable.add(new DocumentForTable(selectedFile.getName(), selectedFile.getParent()));
+            this.list.add(new DocumentForTable(selectedFile.getName(), selectedFile.getParent()));
+            table.setItems(observableListDocumentForTable);
         } else {
+            warningLabel.setText("File not found");
             System.out.println("file is not valid");
         }
     }
     public void addFolder (ActionEvent event) {
-
+        hayFiles = true;
+        if (ArraySocketsIniciado = false){
+            InitList();
+            ArraySocketsIniciado = true;
+        }
         final DirectoryChooser dirchooser = new DirectoryChooser();
 
         File file = dirchooser.showDialog(null);
@@ -59,6 +82,7 @@ public class MainController implements Initializable {
             File parentDirectory = new File (file.getAbsolutePath());
             listDir(parentDirectory);
         } else {
+            warningLabel.setText("File not found");
             System.out.println("file is not valid");
         }
     }
@@ -67,13 +91,16 @@ public class MainController implements Initializable {
         File elements[] = dir.listFiles();
         for (File element: elements){
             if(!element.getName().equals("*.doc")){
-                ListDocuments.insertFirst(element.getName(), element.getParent());
-                observableListDocument.add(new Document(element.getName(), element.getParent()));
-                table.setItems(observableListDocument);
+                ListDocuments.add(new Document(element.getName(), element.getParent()));
+                observableListDocumentForTable.add(new DocumentForTable(element.getName(), element.getParent()));
+                table.setItems(observableListDocumentForTable);
 
             }
         }
-        ListDocuments.displayList();
+        for (DocumentForTable documentForTable : observableListDocumentForTable) {
+            System.out.println(documentForTable.getName());
+        }
+
     }
 
     @Override
@@ -81,7 +108,60 @@ public class MainController implements Initializable {
         colFile.setCellValueFactory(new PropertyValueFactory<>("name"));
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
 
+        dropDownMenu.setValue("Name");
+        dropDownMenu.getItems().addAll("Name", "Date", "Words");
+
+
     }
 
+    public String getSort(){
+        String sortMethod = dropDownMenu.getValue();
+        return sortMethod;
+    }
+    public void search(ActionEvent event) throws IOException {
+        //HelloApplication m = new HelloApplication();
+        if (hayFiles == true) {
+            //m.changeScene("Results.fxml");
 
+            final String HOST = "127.0.0.1";
+            final int PORT = 5000;
+            //ObjectInputStream in;
+            ObjectOutputStream out;
+
+
+            try {
+                Socket clientSocket = new Socket(HOST, PORT);
+
+                //in = new ObjectInputStream(clientSocket.getInputStream());
+                out = new ObjectOutputStream(clientSocket.getOutputStream());
+
+                out.writeObject(ListDocuments);
+
+                /*
+                out.writeInt(listDocument.size());
+                Iterator<Document> aux = listDocument.iterator();
+                while (aux.hasNext()) {
+                    objectOutputStream.writeObject(aux.next());
+                }
+                */
+                //String message = in.readUTF();
+                //System.out.println(message);
+
+                clientSocket.close(); //Este cierra recibir informacion del cliente
+
+            } catch (IOException e) {
+
+                System.out.println(e);
+                //Manejo de biblioteca gson
+            }
+
+        }
+        else {
+            warningLabel.setText("File not found");
+        }
+    }
+
+    public static void main(String[] args) {
+
+    }
 }

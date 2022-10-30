@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="559.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.text_finder.SearchResultsController">
+   <children>
+      <Button fx:id="openfilebtn" layoutX="478.0" layoutY="320.0" mnemonicParsing="false" onAction="#openFile" text="Open File" />
+      <TableView layoutX="14.0" layoutY="45.0" prefHeight="267.0" prefWidth="535.0">
+        <columns>
+          <TableColumn prefWidth="69.0" text="Word" />
+          <TableColumn prefWidth="387.0" text="Result" />
+            <TableColumn minWidth="0.0" prefWidth="78.0" text="Document" />
+        </columns>
+      </TableView>
+      <Label layoutX="27.0" layoutY="20.0" text="AVL Tree Comparisons:" />
+      <Label layoutX="293.0" layoutY="20.0" text="Binary Search Tree Comparisons:" />
+      <Label fx:id="AVLTComparisons" layoutX="160.0" layoutY="20.0" text="Label" />
+      <Label fx:id="BSTComparisons" layoutX="478.0" layoutY="20.0" text="Label" />
+   </children>
+</AnchorPane>
