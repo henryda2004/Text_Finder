@@ -1,3 +1,4 @@
+
 module com.example.text_finder {
     requires javafx.controls;
     requires javafx.fxml;

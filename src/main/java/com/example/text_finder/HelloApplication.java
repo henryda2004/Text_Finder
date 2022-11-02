@@ -9,9 +9,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * ejecucion principal del programa
+ */
 public class HelloApplication extends Application {
 
     private static Stage stg;
+
+    /**
+     * inicializacion del programa
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         stg = stage;
@@ -22,11 +31,20 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
+    /**
+     * cambio de pantalla
+     * @param fxml
+     * @throws IOException
+     */
     public void changeScene(String fxml) throws IOException{
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
         stg.getScene().setRoot(pane);
     }
 
+    /**
+     * ejecuta el programa
+     * @param args
+     */
     public static void main(String[] args) {
 
         launch();

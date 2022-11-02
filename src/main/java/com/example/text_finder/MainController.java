@@ -26,6 +26,9 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * controlador de la interfaz principal
+ */
 public class MainController implements Initializable {
     @FXML
     public Label warningLabel;
@@ -53,12 +56,18 @@ public class MainController implements Initializable {
 
     static boolean hayFiles = false;
 
+    /**
+     * Inicializa lista
+     */
     private void InitList(){
 
     }
 
-
-    //Conexion con server
+    /**
+     * retorna el tipo de archivo
+     * @param file
+     * @return
+     */
     public String getType (File file){
 
         // convert the file name into string
@@ -72,6 +81,13 @@ public class MainController implements Initializable {
         return null;
     }
 
+    /**
+     * retorna el contenido del archivo
+     * @param file
+     * @param type
+     * @return
+     * @throws IOException
+     */
     public String[] getContent (File file, String type) throws IOException {
         String content = "";
         String words[] = new String[0];
@@ -109,7 +125,11 @@ public class MainController implements Initializable {
         }
     }
 
-
+    /**
+     * agregar archivo a la tableview
+     * @param event
+     * @throws IOException
+     */
     public void addFile (ActionEvent event) throws IOException {
         hayFiles = true;
         this.list = new ArrayList<>();
@@ -133,6 +153,12 @@ public class MainController implements Initializable {
             System.out.println("file is not valid");
         }
     }
+
+    /**
+     * agregar arpeta al folder
+     * @param event
+     * @throws IOException
+     */
     public void addFolder (ActionEvent event) throws IOException {
         hayFiles = true;
         if (ArraySocketsIniciado = false){
@@ -152,6 +178,11 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * metodo para agregar archivo por archivo del folder
+     * @param dir
+     * @throws IOException
+     */
     public void listDir(File dir) throws IOException {
         File elements[] = dir.listFiles();
         for (File element: elements){
@@ -168,6 +199,11 @@ public class MainController implements Initializable {
 
     }
 
+    /**
+     * inicializa interfaz
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colFile.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -179,15 +215,30 @@ public class MainController implements Initializable {
 
     }
 
+    /**
+     * recupera palabra por buscar
+     * @param toSearch
+     * @return
+     */
     public String[] getToSearch(String toSearch){
         String[] words = toSearch.split("[ \t\n,?.!\"]+");
         return words;
     }
 
+    /**
+     * recupera metodo de ordenamiento requerido
+     * @return
+     */
     public String getSort(){
         String sortMethod = dropDownMenu.getValue();
         return sortMethod;
     }
+
+    /**
+     * envia informacion al server
+     * @param event
+     * @throws IOException
+     */
     public void search(ActionEvent event) throws IOException {
         //HelloApplication m = new HelloApplication();
         if (hayFiles == true) {
@@ -223,6 +274,10 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * permite correr el archivo
+     * @param args
+     */
     public static void main(String[] args) {
 
     }
