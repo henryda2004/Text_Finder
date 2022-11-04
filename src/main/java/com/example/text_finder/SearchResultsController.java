@@ -16,6 +16,9 @@ import java.util.ResourceBundle;
 
 import static com.example.text_finder.MainController.tableList;
 
+/**
+ * contiene la table view que muestra los resultados de la busqueda de acuerdo a la forma de ordenamiento seleccionada, y las comparaciones de BST y AVL.
+ */
 public class SearchResultsController implements Initializable {
 
     @FXML
@@ -48,11 +51,20 @@ public class SearchResultsController implements Initializable {
     ObservableList<DocumentToSend> list = FXCollections.observableArrayList(
     );
 
+    /**
+     * abre el documento.
+     * @param event
+     */
     @FXML
     void openFile(ActionEvent event) {
 
     }
 
+    /**
+     * inicializa las variables de la tabla y las columnas de la tabla para que puedan ser llenadas con la inofmracion de los resultados de busqueda.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         word.setCellValueFactory(new PropertyValueFactory<DocumentToSend, String>("word"));
