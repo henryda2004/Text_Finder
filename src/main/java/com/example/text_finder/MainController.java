@@ -239,33 +239,45 @@ public class MainController implements Initializable {
      * @param event
      * @throws IOException
      */
+    static ArrayList<DocumentToSend> tableList;
     public void search(ActionEvent event) throws IOException {
-        //HelloApplication m = new HelloApplication();
+        HelloApplication m = new HelloApplication();
         if (hayFiles == true) {
-            //m.changeScene("Results.fxml");
+
             ClientInformation ci = new ClientInformation(getSort(), ListDocuments, getToSearch(textField.getText()));
             final String HOST = "127.0.0.1";
             final int PORT = 5000;
-            //ObjectInputStream in;
+            //DataInputStream in;
+            ObjectInputStream inO;
             ObjectOutputStream out;
 
 
             try {
                 Socket clientSocket = new Socket(HOST, PORT);
 
-                //in = new ObjectInputStream(clientSocket.getInputStream());
+                //in = new DataInputStream(clientSocket.getInputStream());
                 out = new ObjectOutputStream(clientSocket.getOutputStream());
+                inO= new ObjectInputStream(clientSocket.getInputStream());
 
                 out.writeObject(ci); //Envio informacion para el servidor
 
-                //Object message = in.readObject(); //Leo la lista proviniente del servidor
-                //ClientInformation si = (ClientInformation) message;
+                //String message = in.readUTF(); //Leo la lista proviniente del servidor
+                //System.out.println(message);
+
+                Object me = inO.readObject();
+                ArrayList<DocumentToSend> i = (ArrayList<DocumentToSend>) me;
+                tableList = i;
+                System.out.println(tableList);
+                System.out.println(i);
+
 
                 clientSocket.close(); //Este cierra recibir informacion del cliente
-
+                m.changeScene("Results.fxml");
             } catch (IOException e) {
 
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE,null,e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
 
         }
