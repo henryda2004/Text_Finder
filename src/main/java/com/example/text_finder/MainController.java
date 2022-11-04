@@ -41,7 +41,7 @@ public class MainController implements Initializable {
     @FXML
     private Button btnfolder;
     @FXML
-    private TableView table;
+    private TableView<DocumentForTable> table;
 
     public TableColumn <DocumentForTable, String> colFile;
     public TableColumn <DocumentForTable, String>colType;
@@ -292,5 +292,23 @@ public class MainController implements Initializable {
      */
     public static void main(String[] args) {
 
+    }
+
+    /**
+     * Permite eliminar documentos de la lista
+     * @param event
+     */
+    public void delete(ActionEvent event) {
+        DocumentForTable dc = (DocumentForTable) table.getSelectionModel().getSelectedItem();
+
+        for (int i = 0; i < ListDocuments.size(); i++){
+            if (ListDocuments.get(i).getName().equalsIgnoreCase(dc.getName())){
+                ListDocuments.remove(i);
+            }
+        }
+
+        table.getItems().removeAll(table.getSelectionModel().getSelectedItem());
+        System.out.println(dc.getName());
+        System.out.println(ListDocuments);
     }
 }

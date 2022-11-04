@@ -26,6 +26,7 @@
         </columns>
       </TableView>
       <Button fx:id="btnsearch" layoutX="49.0" layoutY="301.0" mnemonicParsing="false" onAction="#search" text="Search" />
+      <Button fx:id="btndelete" layoutX="120.0" layoutY="301.0" mnemonicParsing="false" onAction="#delete" text="Delete" />
       <Label layoutX="34.0" layoutY="120.0" text="Enter content to search:" />
       <TextField fx:id="textField" layoutX="34.0" layoutY="145.0" promptText="Word or phrase" />
       <Label layoutX="36.0" layoutY="227.0" text="Sort results by:" />
